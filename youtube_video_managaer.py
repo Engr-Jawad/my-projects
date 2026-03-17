@@ -1,4 +1,6 @@
 import json
+
+
 def load_data():
     try:
         with open ('youtube.txt','r') as file:
@@ -18,8 +20,11 @@ def save_data(videos):
 def list_all_videos(videos):
     for index,video in enumerate(videos,start=1):
         print("\n")
-        print(f"{index}.  Video Name : {video['name']}, Durations : {video['time']}")
+        
+        print(f"{index}. {video['name']}, Durations : {video['time']} ")
         print("_" * 30)
+
+
 
 def add_videos(videos):
     name=input("enter the video name : ")
@@ -31,13 +36,27 @@ def add_videos(videos):
 
 
 def  update_videos(videos):
-    pass
+    list_all_videos(videos)
+    index=int(input("enter the video number to update :"))
+    if 1 <= index <= len (videos):
+        name=input("enter the video name :")
+        time=input("enter the video time : ")
+        videos[index-1]={'name':name,'time':time}
+        save_data(videos)
+    else:
+        print("the index you selected are invalid")
+
+
 
 
 
 
 def delete_videos(videos):
-    pass
+    list_all_videos(videos)
+    index=int(input("enter the videos index to delete : "))
+    if 1 <= index <= len (videos):
+        del videos[index -1]
+        save_data(videos)
 
 
 
@@ -52,19 +71,19 @@ def main():
         print("4.delete videos")
         print("5.exit")
         # print("choose your option in the above")
-        choice=(input("enter  your choice here : "))
+        choice=int(input("enter  your choice here : "))
         
         
         match choice:
-            case '1':
+            case 1:
                 list_all_videos(videos)
-            case '2':
+            case 2:
                 add_videos(videos)
-            case '3':
+            case 3:
                 update_videos(videos)
-            case '4':
+            case 4:
                 delete_videos(videos)
-            case '5':
+            case 5:
                 break
             case _:
                 print("invalid option")
